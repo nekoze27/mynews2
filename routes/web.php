@@ -43,9 +43,17 @@ use App\Http\Controllers\Admin\ProfileController;
 Route::controller(ProfileController::class)->name('admin.')->middleware('auth')->group(function() {
     Route::get('admin/profile/create','add')->name('profile.add');
     Route::post('admin/profile/create','create')->name('profile.create');
+    Route::get('admin/profile', 'index')->name('profile.index');
     Route::get('admin/profile/edit','edit')->name('profile.edit');
     Route::post('admin/profile/edit','update')->name('profile.update');
+    Route::get('admin/profile/delete', 'delete')->name('profile.delete');
 });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+use App\Http\Controllers\NewsController as PublicNewsController;
+Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
+
+use App\Http\Controllers\ProfileController as PublicProfileController;
+Route::get('/profile', [PublicProfileController::class, 'index'])->name('profile.index');
