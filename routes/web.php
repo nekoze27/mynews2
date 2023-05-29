@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\AAAController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Controllers\Admin\NewsController;
-/*
-Route::controller(NewsController::class)->prefix('admin')->group(function() {
-    Route::get('news/create', 'add')->middleware('auth');
-});
-*/
 Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('news/create', 'add')->name('news.add');
     Route::post('news/create', 'create')->name('news.create');
@@ -33,20 +30,20 @@ Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middl
 });
 
 // 3
-use App\Http\Controllers\AAAController;
+
 Route::controller(AAAController::class)->group(function() {
     Route::get('AAAController', 'bbb');
 });
 
 // 4
-use App\Http\Controllers\Admin\ProfileController;
-Route::controller(ProfileController::class)->name('admin.')->middleware('auth')->group(function() {
-    Route::get('admin/profile/create','add')->name('profile.add');
-    Route::post('admin/profile/create','create')->name('profile.create');
-    Route::get('admin/profile', 'index')->name('profile.index');
-    Route::get('admin/profile/edit','edit')->name('profile.edit');
-    Route::post('admin/profile/edit','update')->name('profile.update');
-    Route::get('admin/profile/delete', 'delete')->name('profile.delete');
+
+Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+    Route::get('profile/create','add')->name('profile.add');
+    Route::post('profile/create','create')->name('profile.create');
+    Route::get('profile', 'index')->name('profile.index');
+    Route::get('profile/edit','edit')->name('profile.edit');
+    Route::post('profile/edit','update')->name('profile.update');
+    Route::get('profile/delete', 'delete')->name('profile.delete');
 });
 Auth::routes();
 
