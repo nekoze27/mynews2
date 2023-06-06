@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('profile_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->nullable();
+            $table->foreignId('profile_id');
             $table->timestamp('edited_at')->useCurrent();
             $table->timestamps();
             
